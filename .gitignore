@@ -1,0 +1,12 @@
+# virtual environment
+venv/
+
+# cache files
+*cache*
+
+# secrets
+envs/*.env
+bot.toml
+
+# ide
+.idea

@@ -1,0 +1,7 @@
+[bot]
+token = "123456:abcdefghigklmnopqr"
+
+[db]
+user = "admin"
+password = "12345678"
+name = "admindb"
