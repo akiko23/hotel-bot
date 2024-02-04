@@ -1,2 +1,2 @@
-Currently empty.
-https://t.me/advertisement23_bot
+Currently empty. 
+https://t.me/HotelElenaBot
