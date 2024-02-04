@@ -18,7 +18,7 @@ class MediaGroupMiddleware(BaseMiddleware):
     async def __call__(
         self,
         handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-        event: TelegramObject,
+        event: Message,
         data: Dict[str, Any]
     ): 
         media_group_id, content = event.media_group_id, self._get_content(event)

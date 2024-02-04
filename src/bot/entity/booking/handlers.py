@@ -4,7 +4,7 @@ from aiogram.filters import Command
 router = Router()
 
 
-@router.message(Command('book'))
+@router.message(Command('booking'))
 async def book(message: types.Message, bot: Bot):
     await bot.send_message(message.chat.id, "")
 

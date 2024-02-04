@@ -1,4 +1,4 @@
-CONFIG_PATH = "bot.toml"
+CONFIG_PATH = "configs/bot.toml"
 
 LOGGING_FORMAT = '%(asctime)s %(name)s %(levelname)s: %(message)s'
 

@@ -20,12 +20,13 @@ class DbConfig:
 @dataclass
 class BotConfig:
     token: str
+    admin_secret_key: str
     
 
 @dataclass
 class Config:
     bot: BotConfig
-    db: DbConfig    
+    db: DbConfig
 
 
 def load_config(path: str):
