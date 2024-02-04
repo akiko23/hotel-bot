@@ -5,8 +5,12 @@ venv/
 *cache*
 
 # secrets
-envs/*.env
-bot.toml
+configs/*.env
+configs/bot.toml
 
 # ide
 .idea
+
+# dists
+src/hotel_bot.egg-info
+build

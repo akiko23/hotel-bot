@@ -1,5 +1,6 @@
 [bot]
 token = "123456:abcdefghigklmnopqr"
+admin_secret_key = "123456"
 
 [db]
 user = "admin"
