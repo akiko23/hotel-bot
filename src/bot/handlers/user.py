@@ -15,10 +15,10 @@ HELP_MESSAGE = """Команды бота:
 
 
 @router.message(CommandStart())
-async def start(message: types.Message):
+async def start(message: types.Message) -> None:
     await message.answer(text=START_MESSAGE)
 
 
-@router.message(Command('help'))
-async def help_(message: types.Message):
+@router.message(Command("help"))
+async def help_(message: types.Message) -> None:
     await message.answer(text=HELP_MESSAGE)

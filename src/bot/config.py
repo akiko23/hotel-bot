@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional
 
 import tomli
 
@@ -13,7 +12,7 @@ class DbConfig:
     port: int = 5432
 
     @property
-    def dsn(self):
+    def dsn(self) -> str:
         return f"postgresql+asyncpg://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}"
 
 
@@ -40,7 +39,7 @@ class Config:
     redis: RedisConfig
 
 
-def load_config(path: str):
+def load_config(path: str) -> Config:
     with open(path, mode="rb") as fp:
         data = tomli.load(fp)
     return Config(

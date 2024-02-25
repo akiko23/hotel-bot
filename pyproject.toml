@@ -15,8 +15,10 @@ requires-python = ">=3.10"
 
 dependencies = [
     "aiogram==3.3.0",
+    "aiogram_dialog==2.1.0",
     "alembic==1.12.1",
     "asyncpg==0.29.0",
+    "redis==5.0.1",
     "SQLAlchemy==2.0.23",
 ]
 
@@ -27,7 +29,7 @@ test = [
     "httpx==0.25.2",
 ]
 lint = [
-    "mypy==1.7.1",
+    "mypy==1.8.0",
     "black==23.11.0",
     "isort==5.12.0",
     "ruff==0.1.6",
@@ -50,25 +52,12 @@ pythonpath = [
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [
-    ".bzr",
-    ".direnv",
-    ".eggs",
     ".git",
-    ".git-rewrite",
-    ".hg",
     ".mypy_cache",
-    ".nox",
-    ".pants.d",
-    ".pytype",
     ".ruff_cache",
-    ".svn",
-    ".tox",
-    "__pypackages__",
-    "_build",
-    "buck-out",
     "build",
     "dist",
-    "node_modules",
+    "alembic/versions",
     "venv",
 ]
 
@@ -109,12 +98,30 @@ line-ending = "auto"
 
 # Isort configuration
 [tool.isort]
+skip = [
+    ".git",
+    ".mypy_cache",
+    ".ruff_cache",
+    "build",
+    "dist",
+    "alembic/versions",
+    "venv",
+]
 include_trailing_comma = true
 use_parentheses = true
 multi_line_output = 3
 
 
 [tool.mypy]
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".ruff_cache",
+    "build",
+    "dist",
+    "alembic/versions",
+    "venv",
+]
 strict = true
 python_version = "3.8"
 ignore_missing_imports = true

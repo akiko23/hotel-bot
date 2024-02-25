@@ -1,10 +1,10 @@
-from typing import Dict, Any, Awaitable, Callable
+from typing import Any, Awaitable, Callable, Dict, Tuple
 
 from aiogram import BaseMiddleware, Bot, types
-from aiogram.types import TelegramObject, BotCommandScopeChat
 from aiogram.enums.message_entity_type import MessageEntityType
+from aiogram.types import BotCommandScopeChat, TelegramObject
 
-from bot.commands import get_guest_commands, get_admin_commands
+from bot.commands import get_admin_commands, get_guest_commands
 from bot.db.repository import DbRepository
 from bot.enums.user import Role
 
@@ -21,11 +21,14 @@ class AuthMiddleware(BaseMiddleware):
         self._repo = repo
 
     async def __call__(
-            self,
-            handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-            msg: types.Message,
-            data: Dict[str, Any]
-    ):
+        self,
+        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+        msg: types.Message,  # type: ignore[override]
+        data: Dict[str, Any],
+    ) -> Any:
+        if not msg.bot:
+            return
+
         bot: Bot = msg.bot
         chat_id = msg.chat.id
 
@@ -35,6 +38,10 @@ class AuthMiddleware(BaseMiddleware):
         user_exists = await self._repo.user_exists(chat_id)
         if not user_exists:
             commands, role = get_guest_commands(), Role.GUEST
+
+            if not msg.text:
+                return
+
             _, arg = self._parse_command(msg.text)
             if arg == self._admin_secret_key:
                 commands, role = get_admin_commands(), Role.ADMIN
@@ -46,8 +53,7 @@ class AuthMiddleware(BaseMiddleware):
                 chat_id=chat_id,
                 text=WELCOME_MESSAGE
                 if role == Role.GUEST
-                else
-                WELCOME_MESSAGE + "\nВаша роль: АДМИН"
+                else WELCOME_MESSAGE + "\nВаша роль: АДМИН",
             )
         return await handler(msg, data)
 
@@ -59,11 +65,14 @@ class AuthMiddleware(BaseMiddleware):
         if msg_type != MessageEntityType.BOT_COMMAND:
             return False
 
+        if not msg.text:
+            return False
+
         command, _ = self._parse_command(msg.text)
         return command == COMMAND_START
 
     @staticmethod
-    def _parse_command(text: str) -> tuple[str, str]:
+    def _parse_command(text: str) -> Tuple[str, str]:
         try:
             command, arg = text.split(maxsplit=1)
         except ValueError:

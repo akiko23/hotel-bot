@@ -3,14 +3,14 @@ import logging
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from bot.models import User
 from bot.enums.user import Role
+from bot.models import User
 
 logger = logging.getLogger(__name__)
 
 
 class DbRepository:
-    __slots__ = ('_session_factory',)
+    __slots__ = ("_session_factory",)
 
     def __init__(self, session_factory: async_sessionmaker[AsyncSession]):
         self._session_factory = session_factory
