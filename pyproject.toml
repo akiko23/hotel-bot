@@ -14,7 +14,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 
 dependencies = [
-    "aiogram==3.0.0rc1",
+    "aiogram==3.3.0",
     "alembic==1.12.1",
     "asyncpg==0.29.0",
     "SQLAlchemy==2.0.23",
