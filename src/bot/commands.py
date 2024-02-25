@@ -16,21 +16,11 @@ def get_guest_commands():
     return [
         *COMMON_COMMANDS,
         BotCommand(
-            command='book',
+            command='booking',
             description='Забронировать номер'
-        ),
-        BotCommand(
-            command='reservations',
-            description='Посмотреть мои брони'
-        ),
+        )
     ]
 
 
 def get_admin_commands():
-    return [
-        *COMMON_COMMANDS,
-        BotCommand(
-            command='new_room',
-            description='Добавить номер'
-        ),
-    ]
+    return COMMON_COMMANDS

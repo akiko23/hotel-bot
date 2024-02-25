@@ -1,4 +1,4 @@
-from aiogram import Router, types, F, Bot
+from aiogram import Router, types
 from aiogram.filters import Command, CommandStart
 
 router = Router()
@@ -23,4 +23,3 @@ async def start(message: types.Message):
 @router.message(Command('help'))
 async def help_(message: types.Message):
     await message.answer(text=HELP_MESSAGE)
-

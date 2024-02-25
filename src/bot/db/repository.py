@@ -3,8 +3,8 @@ import logging
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from bot.entity.models import User
-from bot.entity.user import enums
+from bot.models import User
+from bot.enums.user import Role
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ class DbRepository:
             res = await session.execute(stmt)
         return bool(res.scalar_one_or_none())
 
-    async def add_user(self, user_id: int, role: enums.Role = enums.Role.GUEST) -> None:
+    async def add_user(self, user_id: int, role: Role = Role.GUEST) -> None:
         async with self._session_factory() as session:
             async with session.begin():
                 session.add(User(telegram_id=user_id, role=role))

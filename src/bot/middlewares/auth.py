@@ -6,7 +6,7 @@ from aiogram.enums.message_entity_type import MessageEntityType
 
 from bot.commands import get_guest_commands, get_admin_commands
 from bot.db.repository import DbRepository
-from bot.entity.user import enums
+from bot.enums.user import Role
 
 WELCOME_MESSAGE = """Добро пожаловать в бота гостевого дома 'Елена'!
 Для получения справки по командам зайдите в /help
@@ -23,22 +23,21 @@ class AuthMiddleware(BaseMiddleware):
     async def __call__(
             self,
             handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-            event: types.Update,
+            msg: types.Message,
             data: Dict[str, Any]
     ):
-        bot: Bot = event.bot
-        msg = event.message
+        bot: Bot = msg.bot
         chat_id = msg.chat.id
 
         if not self._msg_is_command_start(msg):
-            return await handler(event, data)
+            return await handler(msg, data)
 
         user_exists = await self._repo.user_exists(chat_id)
         if not user_exists:
-            commands, role = get_guest_commands(), enums.Role.GUEST
+            commands, role = get_guest_commands(), Role.GUEST
             _, arg = self._parse_command(msg.text)
             if arg == self._admin_secret_key:
-                commands, role = get_admin_commands(), enums.Role.ADMIN
+                commands, role = get_admin_commands(), Role.ADMIN
 
             await self._repo.add_user(chat_id, role)
 
@@ -46,13 +45,16 @@ class AuthMiddleware(BaseMiddleware):
             return await bot.send_message(
                 chat_id=chat_id,
                 text=WELCOME_MESSAGE
-                if role == enums.Role.GUEST
+                if role == Role.GUEST
                 else
                 WELCOME_MESSAGE + "\nВаша роль: АДМИН"
             )
-        return await handler(event, data)
+        return await handler(msg, data)
 
     def _msg_is_command_start(self, msg: types.Message) -> bool:
+        if not msg.entities:
+            return False
+
         msg_type = msg.entities[0].type
         if msg_type != MessageEntityType.BOT_COMMAND:
             return False
