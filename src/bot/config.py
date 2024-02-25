@@ -18,15 +18,26 @@ class DbConfig:
 
 
 @dataclass
+class RedisConfig:
+    host: str = "localhost"
+    port: int = 6379
+
+    @property
+    def dsn(self) -> str:
+        return f"redis://{self.host}:{self.port}/0"
+
+
+@dataclass
 class BotConfig:
     token: str
     admin_secret_key: str
-    
+
 
 @dataclass
 class Config:
     bot: BotConfig
     db: DbConfig
+    redis: RedisConfig
 
 
 def load_config(path: str):
@@ -35,5 +46,5 @@ def load_config(path: str):
     return Config(
         bot=BotConfig(**data["bot"]),
         db=DbConfig(**data["db"]),
+        redis=RedisConfig(**data["redis"]),
     )
-

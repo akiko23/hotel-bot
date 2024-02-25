@@ -3,7 +3,9 @@ import logging
 
 from aiogram import Dispatcher, Bot
 from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.storage.redis import RedisStorage, DefaultKeyBuilder
 from aiogram_dialog import setup_dialogs
+from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
 from bot.consts import LOGGING_FORMAT, CONFIG_PATH
@@ -23,7 +25,9 @@ async def main():
     )
     cfg = load_config(CONFIG_PATH)
 
-    storage = MemoryStorage()
+    storage = RedisStorage.from_url(cfg.redis.dsn)
+    storage.key_builder = DefaultKeyBuilder(with_destiny=True)
+
     dp = Dispatcher(storage=storage)
 
     dp.include_router(user_router)
