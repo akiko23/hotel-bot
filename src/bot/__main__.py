@@ -10,6 +10,7 @@ from bot.consts import LOGGING_FORMAT, CONFIG_PATH
 from bot.config import load_config
 from bot.db.repository import DbRepository
 from bot.handlers.booking import router as booking_router, dialog
+from bot.handlers.conversation import router as conversation_router
 from bot.handlers.user import router as user_router
 from bot.middlewares.auth import AuthMiddleware
 from bot.middlewares.media_group import MediaGroupMiddleware
@@ -27,6 +28,7 @@ async def main():
 
     dp.include_router(user_router)
     dp.include_router(booking_router)
+    dp.include_router(conversation_router)
     dp.include_router(dialog)
 
     setup_dialogs(dp)

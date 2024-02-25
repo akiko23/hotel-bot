@@ -6,4 +6,4 @@ LOGGING_FORMAT = '%(asctime)s %(name)s %(levelname)s: %(message)s'
 FORBIDDEN_CHARS = ('_', '@', '/', "\\", '-', '+', '[', ']', '|')
 
 # Admin account id
-ADMIN_ID = 818525681
+ADMIN_ID = 1040821038

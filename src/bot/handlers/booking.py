@@ -115,7 +115,7 @@ async def on_number_of_people(msg: types.Message, _, manager: DialogManager, *__
 
 dialog = Dialog(
     Window(
-        Const("Введите количество человек, которые заселятся в номер"),
+        Const("Введите количество гостей"),
         TextInput(id="number_of_people", on_success=on_number_of_people),
         CANCEL_BOOKING,
         state=CreateBookingForm.number_of_people,
