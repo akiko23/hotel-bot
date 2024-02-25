@@ -9,7 +9,7 @@ from alembic import context
 
 
 from bot.db.base import Base
-from bot.entity.models import * # noqa F403
+from bot.models import * # noqa F403
 from bot.config import load_config
 from bot.consts import CONFIG_PATH
 
