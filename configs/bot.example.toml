@@ -1,8 +1,11 @@
 [bot]
 token = "123456:abcdefghigklmnopqr"
-admin_secret_key = "123456"
+admin_secret_key = "secret"
 
 [db]
+host = "localhost"
+port = 5432
 user = "admin"
-password = "12345678"
-name = "admindb"
+password = "12345"
+name = "admin_db"
+
