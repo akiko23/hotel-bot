@@ -207,5 +207,5 @@ dialog = Dialog(
 
 
 @router.message(Command("booking"))
-async def on_start_booking(dialog_manager: DialogManager) -> None:
+async def on_start_booking(_: types.Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=CreateBookingForm.number_of_people)
