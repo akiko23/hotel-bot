@@ -1,9 +1,9 @@
-FROM python:3.10
+FROM python:3.10-alpine
 
 COPY . /hotel-bot
 WORKDIR /hotel-bot
 
-RUN apt-get update \
+RUN apk update \
     && pip3 install --upgrade pip \
     && pip3 install --upgrade setuptools \
     && pip3 install .
