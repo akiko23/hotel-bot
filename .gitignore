@@ -5,7 +5,7 @@ venv/
 *cache*
 
 # secrets
-configs/*.env
+configs/db.env
 configs/bot.toml
 
 # ide
