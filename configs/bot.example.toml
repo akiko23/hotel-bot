@@ -9,3 +9,6 @@ user = "admin"
 password = "12345"
 name = "admin_db"
 
+[redis]
+host = "localhost"
+port = 6379
