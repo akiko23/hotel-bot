@@ -20,6 +20,7 @@ dependencies = [
     "asyncpg==0.29.0",
     "redis==5.0.1",
     "SQLAlchemy==2.0.23",
+    "tomli==2.0.1",
 ]
 
 [project.optional-dependencies]
